@@ -6,7 +6,10 @@ import restx.server.JettyWebServer;
 import restx.server.WebServer;
 
 import java.io.FileInputStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +31,7 @@ public class AppServer {
             System.getProperties().load(new FileInputStream(propertiesFile));
         }
 
-        linkProperties();
+        linkProperties(0);
 
         System.setProperty("restx.app.package", "qzui");
         /*
@@ -71,7 +74,10 @@ public class AppServer {
         return Arrays.asList(s.split("[,;]")).stream().map(s2 -> s2.trim()).toArray(String[]::new);
     }
 
-    private static void linkProperties() {
+    private static void linkProperties(int count) {
+        if (count > 2) {
+            return;
+        }
         boolean anotherLoop = false;
         for (Map.Entry<Object, Object> prop : System.getProperties().entrySet()) {
             Object value = prop.getValue();
@@ -100,7 +106,7 @@ public class AppServer {
             }
         }
         if (anotherLoop) {
-            linkProperties();
+            linkProperties(count + 1);
         }
     }
 
