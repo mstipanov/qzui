@@ -104,7 +104,7 @@ public class AppServer {
         }
     }
 
-    private static String getProperty(String key, String def) {
+    public static String getProperty(String key, String def) {
         String v = getProperty(key);
         if (null != v) {
             return v;

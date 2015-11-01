@@ -54,11 +54,11 @@ public class AppModule {
                         new StdUser("admin", ImmutableSet.<String>of("*")),
 
                         // the path where users are stored
-                        Paths.get("data/users.json"),
+                        Paths.get(AppServer.getProperty("restx.users.file", "data/users.json")),
 
                         // the path where credentials are stored. isolating both is a good practice in terms of security
                         // it is strongly recommended to follow this approach even if you use your own repository
-                        Paths.get("data/credentials.json"),
+                        Paths.get(AppServer.getProperty("restx.credentials.file", "data/credentials.json")),
 
                         // tells that we want to reload the files dynamically if they are touched.
                         // this has a performance impact, if you know your users / credentials never change without a
